@@ -13,7 +13,7 @@ public class ProductFactory {
 		if(type==ProductType.Smartphone) {
 			System.out.print("Insert the ram value: ");
 			int ram = scanner.nextInt();
-			out = new Smartphone(brand, model, ram);
+			//out = new Smartphone(brand, model, ram);
 		}
 		if(type==ProductType.Smartwatch) {
 			System.out.print("Insert the smartwacth ram value: ");
