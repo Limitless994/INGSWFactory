@@ -1,6 +1,5 @@
 package ingsw.mat.unical.it.ProductFactory;
-
-public class Smartphone implements Product {
+public abstract class Smartphone implements Product {
 
 	String brand;
 	String model;
