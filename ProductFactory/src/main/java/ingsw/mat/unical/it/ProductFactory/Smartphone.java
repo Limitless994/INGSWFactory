@@ -1,4 +1,7 @@
 package ingsw.mat.unical.it.ProductFactory;
+
+import java.awt.Graphics;
+
 public abstract class Smartphone implements Product {
 
 	String brand;
@@ -12,6 +15,11 @@ public abstract class Smartphone implements Product {
 
 	public void printStats() {
 		System.out.println("Smartphone-> Brand:" + brand + " Model:"+model+" Ram:"+ram);
+	}
+
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -4,7 +4,8 @@ public class IosPhone extends Smartphone {
 
 	IosPhone(String b, String m, int r) {
 		super(b, m, r);
-		// TODO Auto-generated constructor stub
 	}
-
+	public void printStats() {
+		System.out.println("IOS2-> Brand:" + brand + " Model:"+model+" Ram:"+ram);
+	}
 }
