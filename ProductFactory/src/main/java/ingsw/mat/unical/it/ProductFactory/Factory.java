@@ -1,22 +1,19 @@
 package ingsw.mat.unical.it.ProductFactory;
 
 import java.awt.Graphics;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
-public class Factory implements Runnable {
+public class Factory extends Panel {
 
 	private Display display;
 	private Product out;
 	public int width, height;
 	public String title;
 	ArrayList<Product> products = new ArrayList<Product>(); // Create an ArrayList object
-
-
-	private boolean running = false;
-	private Thread thread;
 
 	private BufferStrategy bs;
 	private Graphics g;
@@ -63,9 +60,6 @@ public class Factory implements Runnable {
 		});
 	}
 
-	private void tick(){
-	}
-
 	private void render(){
 		bs = display.getCanvas().getBufferStrategy();
 		if(bs == null){
@@ -90,59 +84,12 @@ public class Factory implements Runnable {
 		g.dispose();
 	}
 
-public void run(){
-		
+	public void run(){
+
 		init();
-		
-		int fps = 60;
-		double timePerTick = 1000000000 / fps;
-		double delta = 0;
-		long now;
-		long lastTime = System.nanoTime();
-		long timer = 0;
-		int ticks = 0;
-		
-		while(running){
-			now = System.nanoTime();
-			delta += (now - lastTime) / timePerTick;
-			timer += now - lastTime;
-			lastTime = now;
-			
-			if(delta >= 1){
-				tick();
-				render();
-				ticks++;
-				delta--;
-			}
-			
-			if(timer >= 1000000000){
-				//System.out.println("Ticks and Frames: " + ticks);
-				ticks = 0;
-				timer = 0;
-			}
-		}
-		
-		stop();
-		
-	}
-	public synchronized void start(){
-		if(running)
-			return;
-		running = true;
-		thread = new Thread(this);
-		thread.start();
+		while(1!=100)render();
 	}
 
-	public synchronized void stop(){
-		if(!running)
-			return;
-		running = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public ArrayList<Product> getProducts() {
 		return products;
