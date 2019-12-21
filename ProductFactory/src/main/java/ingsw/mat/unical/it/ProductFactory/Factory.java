@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Factory extends Panel {
 
@@ -13,7 +14,7 @@ public class Factory extends Panel {
 	private Product out;
 	public int width, height;
 	public String title;
-	ArrayList<Product> products = new ArrayList<Product>(); // Create an ArrayList object
+	public ArrayList<Product> products = new ArrayList<Product>(); // Create an ArrayList object
 
 	private BufferStrategy bs;
 	private Graphics g;
@@ -29,37 +30,41 @@ public class Factory extends Panel {
 		Assets.init();
 		display.b.addActionListener(new ActionListener() {          
 			public void actionPerformed(ActionEvent e) {
-				if(products.size()<=7) {
-					out = new AndroidPhone("Samsung", "S10", 8);
-					System.out.println("Added an Android phone to shelf");
-					products.add(out);
-				}else {
-					System.out.println("Scaffale Pieno");	
-				}
+
+				out = new AndroidPhone("Samsung", "S10", 8);
+				System.out.println("Added an Android phone to shelf");
+				add(out);
+
 			}
 		}); 
 		display.b2.addActionListener(new ActionListener() {          
 			public void actionPerformed(ActionEvent e) {
-				if(products.size()<=7) {
-					out = new IosPhone("Apple", "Iphone 10", 6);
-					System.out.println("Added an iPhone to shelf");
-					products.add(out);
-				}else {
-					System.out.println("Scaffale Pieno");	
-				}
+				out = new IosPhone("Apple", "Iphone 10", 6);
+				System.out.println("Added an iPhone to shelf");
+				add(out);
 			}
 		});
 		display.b3.addActionListener(new ActionListener() {          
 			public void actionPerformed(ActionEvent e) {
-				if(products.size()>=1) {
-					System.out.println("Rimosso");
-					products.remove(products.size()-1);
-				}
+				remove();
 			}
 
 		});
 	}
 
+	public void add(Product p) {
+		if(products.size()<=7) {
+			products.add(p);
+		}
+	}
+
+	public void remove() {
+		if(products.size()>=1) {
+			System.out.println("Rimosso");
+			products.remove(products.size()-1);
+		}
+
+	}
 	private void render(){
 		bs = display.getCanvas().getBufferStrategy();
 		if(bs == null){
@@ -72,6 +77,9 @@ public class Factory extends Panel {
 		//Draw Here!
 		g.drawImage(Assets.bg, 0, 200, null);
 		int i=50;
+
+		//Iterator<Product> iter = products.iterator();
+
 		for(Product it:products) {
 			if(it instanceof AndroidPhone) {
 				g.drawImage(Assets.android, i, 280, null);
